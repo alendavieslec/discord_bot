@@ -13,7 +13,7 @@ idioma = {
         '🇮🇹': 'Italian'
 }
 
-function unaVezTraducido( {translation} ) {
+function unaVezTraducido( {translation, reaction} ) {
         let generalChannel = client.channels.cache.get("967164003375779870")
         generalChannel.send(translation[0]);
 }
