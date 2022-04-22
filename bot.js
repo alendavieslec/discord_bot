@@ -1,9 +1,23 @@
 const Discord = require('discord.js')
-const traducir = require('./traducir.js')
 const config = require('./config.json');
+const { traducir } = require('./traductor');
 const client = new Discord.Client( {partials: ['MESSAGE', 'REACTION']})
 
 const prefix = '-'
+
+idioma = {
+        '🇨🇵': 'French',
+        '🇬🇧': 'English',
+        '🇪🇦': 'Spanish',
+        '🇩🇪': 'German',
+        '🇮🇹': 'Italian'
+}
+
+function unaVezTraducido( {translation} ) {
+        console.log(translation[0]);
+        /* let generalChannel = client.channels.cache.get("966564830100205584")
+        generalChannel.send(translation[0]) */
+}
 
 client.on('ready', () =>{
         console.log('Connected as ' + client.user.tag)
@@ -27,19 +41,13 @@ client.on('messageReactionAdd', (reaction) =>{
         console.log('Hello')
         
         let channel = client.channels.cache.get(reaction.message.channel.id)
+        let msg = reaction.message.content
+        const desde = 'Spanish'
+        const hasta = idioma[reaction.emoji]
+
+        console.log(hasta)
         
-        const { name } = reaction.emoji;
-        switch (name){
-                case '🇦🇷':
-                        channel.send("Spanish")
-                        break;
-                case '🇨🇵':
-                        channel.send("French")
-                        break;
-                case '🇬🇧':
-                        channel.send("English")
-                        break;
-        }
+        //traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido} );
 })
 
 client.on('message', msg => {

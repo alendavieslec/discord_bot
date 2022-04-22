@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "deepl-node": "^1.2.2",
-    "discord.js": "^12.5.3",
     "reverso-api": "^2.19.2"
   }
 }
