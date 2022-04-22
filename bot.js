@@ -13,9 +13,9 @@ idioma = {
         '🇮🇹': 'Italian'
 }
 
-function unaVezTraducido( translation, reaction ) {
+function unaVezTraducido( result, reaction ) {
         let generalChannel = client.channels.cache.get("967164003375779870")
-        generalChannel.send(translation[0]);
+        generalChannel.send(result.translation[0]);
         //channel.send(reaction.emoji + ':' + translation[0])
 }
 
