@@ -15,8 +15,8 @@ idioma = {
 
 function unaVezTraducido( {translation} ) {
         console.log(translation[0]);
-        /* let generalChannel = client.channels.cache.get("966564830100205584")
-        generalChannel.send(translation[0]) */
+        let generalChannel = client.channels.cache.get("967164003375779870")
+        generalChannel.send(translation[0]);
 }
 
 client.on('ready', () =>{
@@ -24,17 +24,12 @@ client.on('ready', () =>{
 
         client.user.setActivity("Minecraft", {type:"PLAYING"})
 
-        /* client.guilds.cache.forEach((guild) => {
+        client.guilds.cache.forEach((guild) => {
                 console.log(guild.name);
                 guild.channels.cache.forEach((channel) => {
                         console.log(` - ${channel.name} ${channel.type} ${channel.id}`)
                 })
-        }) */
-
-        //let generalChannel = client.channels.cache.get("966564830100205584")
-        //const attachment = new Discord.Attachment("") para poner imagenes o files
-        //generalChannel.send(attachment)
-        //generalChannel.send("Hello, world!")
+        })
 })
 
 client.on('messageReactionAdd', (reaction) =>{
@@ -45,9 +40,10 @@ client.on('messageReactionAdd', (reaction) =>{
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
 
+        console.log(msg)
         console.log(hasta)
         
-        //traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido} );
+        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido});
 })
 
 client.on('message', msg => {
