@@ -13,15 +13,11 @@ idioma = {
         '🇮🇹': 'Italian'
 }
 
-function unaVezTraducido( {translation, reaction} ) {
-<<<<<<< HEAD
-        console.log(translation[0])
-        //let channel = client.channels.cache.get(reaction.message.channel.id)
-=======
->>>>>>> 0f4b1094a4e6803d7e7b9c8fe958db6c9a1750d5
-        let generalChannel = client.channels.cache.get("967164003375779870")
-        generalChannel.send(translation[0]);
-        //channel.send(reaction.emoji + ':' + translation[0])
+function unaVezTraducido( translation, reaction ) {
+        let channel = client.channels.cache.get(reaction.message.channel.id)
+        /* let generalChannel = client.channels.cache.get("967164003375779870")
+        generalChannel.send(translation[0]); */
+        channel.send(reaction.emoji + ": " + translation[0])
 }
 
 client.on('ready', () =>{
@@ -44,7 +40,7 @@ client.on('messageReactionAdd', (reaction) =>{
         let msg = reaction.message.content
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
-        //console.log(msg)
+        console.log("Message to translate: " + msg)
         //channel.send(reaction.emoji.name)
         
         traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction});
@@ -55,7 +51,7 @@ client.on('message', msg => {
                 return
         }
         
-        //msg.channel.send("Message received: " + msg.author.toString() + ": " + msg.content)
+        console.log("Message received from "+ msg.author.username + ": " + msg.content)
 
         if(msg.content.startsWith(prefix)){
                 processCommand(msg)
