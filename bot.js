@@ -41,7 +41,7 @@ client.on('messageReactionAdd', (reaction) =>{
 
         channel.send(reaction.emoji.name)
         
-        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido});
+        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction});
 })
 
 client.on('message', msg => {
