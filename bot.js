@@ -13,9 +13,12 @@ idioma = {
         '🇮🇹': 'Italian'
 }
 
-function unaVezTraducido( {translation} ) {
+function unaVezTraducido( {translation, reaction} ) {
+        console.log(translation[0])
+        //let channel = client.channels.cache.get(reaction.message.channel.id)
         let generalChannel = client.channels.cache.get("967164003375779870")
         generalChannel.send(translation[0]);
+        //channel.send(reaction.emoji + ':' + translation[0])
 }
 
 client.on('ready', () =>{
@@ -32,14 +35,14 @@ client.on('ready', () =>{
 })
 
 client.on('messageReactionAdd', (reaction) =>{
-        console.log('Hello')
+        //console.log('Hello')
         
         let channel = client.channels.cache.get(reaction.message.channel.id)
         let msg = reaction.message.content
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
-
-        channel.send(reaction.emoji.name)
+        //console.log(msg)
+        //channel.send(reaction.emoji.name)
         
         traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido});
 })
