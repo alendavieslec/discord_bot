@@ -6,23 +6,33 @@ const client = new Discord.Client( {partials: ['MESSAGE', 'REACTION']})
 const prefix = '-'
 
 idioma = {
-        '🇨🇵': 'French',
+        '🇫🇷': 'French',
         '🇬🇧': 'English',
         '🇪🇦': 'Spanish',
         '🇩🇪': 'German',
         '🇮🇹': 'Italian'
 }
 
-function unaVezTraducido( result, reaction ) {
-        let generalChannel = client.channels.cache.get("967164003375779870")
-        generalChannel.send(result.translation[0]);
-        //channel.send(reaction.emoji + ':' + translation[0])
+function unaVezTraducido( result, reaction, user ) {
+        let channel = client.channels.cache.get(reaction.message.channel.id)
+        /* let generalChannel = client.channels.cache.get("967164003375779870")
+        generalChannel.send(result.translation[0]); */
+        //channel.send(reaction.emoji.name + " " + idioma[reaction.emoji])
+        //channel.send(result.translation)
+        
+        let embed = new Discord.MessageEmbed()
+                .setColor('#8ac8df')
+                .setTitle(reaction.emoji.name + " " + idioma[reaction.emoji])
+                .setAuthor(user.username, user.avatarURL())
+                .setDescription(result.translation)
+                
+        channel.send(embed)
 }
 
 client.on('ready', () =>{
         console.log('Connected as ' + client.user.tag)
 
-        client.user.setActivity("Minecraft", {type:"PLAYING"})
+        client.user.setActivity("Translation", {type: "PLAYING"})
 
         /* client.guilds.cache.forEach((guild) => {
                 console.log(guild.name);
@@ -33,26 +43,35 @@ client.on('ready', () =>{
 })
 
 client.on('messageReactionAdd', (reaction, user) =>{
+<<<<<<< HEAD
         //console.log('Hello')
         
+=======
+        if(user.bot){
+                return
+        }        
+>>>>>>> 1f04591a52d285197295d58c4109fa1e2f1f82de
         let channel = client.channels.cache.get(reaction.message.channel.id)
         let msg = reaction.message.content
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
-        //console.log(msg)
-        //channel.send(reaction.emoji.name)
+        console.log("Message to translate: " + msg)
         
         traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction, user: user});
 })
+
 
 client.on('message', msg => {
         if(msg.author == client.user){
                 return
         }
         
-        //msg.channel.send("Message received: " + msg.author.toString() + ": " + msg.content)
+        msg.react('🇫🇷')
+        msg.react('🇬🇧')
+        msg.react('🇮🇹')
+        msg.react('🇩🇪')
 
-        if(msg.content.startsWith(prefix)){
+       /*  if(msg.content.startsWith(prefix)){
                 processCommand(msg)
         }
 
@@ -73,7 +92,7 @@ client.on('message', msg => {
                 }else{
                         msg.channel.send("It looks like you need help with " + arguments)
                 }
-        }
+        } */
 })
 
 client.login(config.token)
