@@ -13,7 +13,6 @@ idioma = {
         '🇮🇹': 'Italian'
 }
 
-<<<<<<< HEAD
 function unaVezTraducido( result, reaction, user ) {
         let channel = client.channels.cache.get(reaction.message.channel.id)
         /* let generalChannel = client.channels.cache.get("967164003375779870")
@@ -28,12 +27,6 @@ function unaVezTraducido( result, reaction, user ) {
                 .setDescription(result.translation)
                 
         channel.send(embed)
-=======
-function unaVezTraducido( result, reaction ) {
-        let generalChannel = client.channels.cache.get("967164003375779870")
-        generalChannel.send(result.translation[0]);
-        //channel.send(reaction.emoji + ':' + translation[0])
->>>>>>> 933235eefe1bfc0c3c5bedf40cc10228ea5d06cf
 }
 
 client.on('ready', () =>{
