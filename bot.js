@@ -15,10 +15,6 @@ idioma = {
 
 function unaVezTraducido( result, reaction, user ) {
         let channel = client.channels.cache.get(reaction.message.channel.id)
-        /* let generalChannel = client.channels.cache.get("967164003375779870")
-        generalChannel.send(result.translation[0]); */
-        //channel.send(reaction.emoji.name + " " + idioma[reaction.emoji])
-        //channel.send(result.translation)
         
         let embed = new Discord.MessageEmbed()
                 .setColor('#8ac8df')
@@ -33,13 +29,6 @@ client.on('ready', () =>{
         console.log('Connected as ' + client.user.tag)
 
         client.user.setActivity("Translation", {type: "PLAYING"})
-
-        /* client.guilds.cache.forEach((guild) => {
-                console.log(guild.name);
-                guild.channels.cache.forEach((channel) => {
-                        console.log(` - ${channel.name} ${channel.type} ${channel.id}`)
-                })
-        }) */
 })
 
 client.on('messageReactionAdd', (reaction, user) =>{
@@ -50,9 +39,13 @@ client.on('messageReactionAdd', (reaction, user) =>{
         let msg = reaction.message.content
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
-        console.log("Message to translate: " + msg)
         
-        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction, user: user});
+        if((Object.keys(idioma)).includes(reaction.emoji)){
+                traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction, user: user});
+        }
+        else{
+                console.log("Hola")
+        }
 })
 
 
@@ -65,29 +58,6 @@ client.on('message', msg => {
         msg.react('🇬🇧')
         msg.react('🇮🇹')
         msg.react('🇩🇪')
-
-       /*  if(msg.content.startsWith(prefix)){
-                processCommand(msg)
-        }
-
-        function processCommand(msg){
-                let fullCommand = msg.content.substr(1)
-                let splitCommand = fullCommand.split(" ")
-                let primaryCommand = splitCommand[0]
-                let arguments = splitCommand.slice(1)
-                
-                if(primaryCommand == "help"){
-                        helpCommand(arguments, msg)
-                }
-        }
-
-        function helpCommand(arguments, msg){
-                if(arguments.length == 0){
-                        msg.channel.send("I'm not sure what you need help with. Try -help [topic]")
-                }else{
-                        msg.channel.send("It looks like you need help with " + arguments)
-                }
-        } */
 })
 
 client.login(config.token)
