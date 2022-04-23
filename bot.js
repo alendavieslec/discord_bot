@@ -32,7 +32,7 @@ client.on('ready', () =>{
         }) */
 })
 
-client.on('messageReactionAdd', (reaction) =>{
+client.on('messageReactionAdd', (reaction, user) =>{
         //console.log('Hello')
         
         let channel = client.channels.cache.get(reaction.message.channel.id)
@@ -42,7 +42,7 @@ client.on('messageReactionAdd', (reaction) =>{
         //console.log(msg)
         //channel.send(reaction.emoji.name)
         
-        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction});
+        traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction, user: user});
 })
 
 client.on('message', msg => {
