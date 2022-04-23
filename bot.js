@@ -3,8 +3,6 @@ const config = require('./config.json');
 const { traducir } = require('./traductor');
 const client = new Discord.Client( {partials: ['MESSAGE', 'REACTION']})
 
-const prefix = '-'
-
 idioma = {
         '🇫🇷': 'French',
         '🇬🇧': 'English',
@@ -32,20 +30,20 @@ client.on('ready', () =>{
 })
 
 client.on('messageReactionAdd', (reaction, user) =>{
+
+        if(user.bot){
+                return;
+        }
         
         let channel = client.channels.cache.get(reaction.message.channel.id)
         let msg = reaction.message.content
         const desde = 'Spanish'
         const hasta = idioma[reaction.emoji]
         
-        if((Object.keys(idioma)).includes(reaction.emoji)){
+        if(msg){
                 traducir( {texto: msg, orig_len: desde, target_len: hasta, callback: unaVezTraducido, reaction: reaction, user: user});
         }
-        else{
-                console.log("Hola")
-        }
 })
-
 
 client.on('message', msg => {
         if(msg.author == client.user){
