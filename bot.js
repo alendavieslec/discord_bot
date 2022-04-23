@@ -32,14 +32,7 @@ client.on('ready', () =>{
 })
 
 client.on('messageReactionAdd', (reaction, user) =>{
-<<<<<<< HEAD
-        //console.log('Hello')
         
-=======
-        if(user.bot){
-                return
-        }        
->>>>>>> 1f04591a52d285197295d58c4109fa1e2f1f82de
         let channel = client.channels.cache.get(reaction.message.channel.id)
         let msg = reaction.message.content
         const desde = 'Spanish'
